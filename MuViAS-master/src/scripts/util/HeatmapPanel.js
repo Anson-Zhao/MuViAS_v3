@@ -43,8 +43,8 @@ define(['./Transformation',
         $.ajax({
             url: 'http://v2.cs.aworldbridgelabs.com:9090/heatmap',
             type: 'GET',
-            // dataType: 'json',
-            // async: false,
+            dataType: 'json',
+            async: false,
             // data: querystr,
             success: function (resp) {
                 var heatMapData = [];
@@ -52,8 +52,8 @@ define(['./Transformation',
                 for (var i = 0; i < resp.length; i++) {
 
                     heatMapData[i] = [];
-                    heatMapData[i][1] = resp[i].LatiDecimal;
-                    heatMapData[i][0] = resp[i].LongDecimal;
+                    heatMapData[i][1] = resp[i].latitude;
+                    heatMapData[i][0] = resp[i].longitude;
                     intensities[i] = 1;
 
                     if (i === resp.length - 1) {
@@ -85,8 +85,6 @@ define(['./Transformation',
         heat.intensities = intensities;
         heat.canvas = canvas;
         heat.max(5);
-
-        console.log(heat.points);
 
         var heatmap = new WorldWind.SurfaceImage(new WorldWind.Sector(-90, 90, -180, 180),
             new WorldWind.ImageSource(canvas));
